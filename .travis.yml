@@ -19,8 +19,8 @@ install:
 - pip install -U -r requirements.txt
 
 script:
-- if [ "$TYPE" = "docker" ]; then docker build -t musicbot .; docker images -a; fi;
+- if [ "$TYPE" = "docker" ]; then docker build -t $TAG_SHORT .; docker images -a; fi;
 - if [ "$TYPE" = "build" ]; then python -m compileall ./musicbot; fi;
 
 after_success:
-- if [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TYPE" == "docker" ]; then docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASS"; docker tag musicbot justsomebots/musicbot:$TRAVIS_BRANCH; docker push justsomebots/musicbot; fi;
+- if [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TYPE" == "docker" ]; then docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASS"; docker tag $TAG_SHORT $TAG_LONG:$TRAVIS_BRANCH; docker push $TAG_LONG; fi;
