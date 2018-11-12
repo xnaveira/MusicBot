@@ -18,6 +18,7 @@ install:
 - if [ "$TYPE" = "build" ]; then ./.travis/install.sh; fi;
 - pip install -U -r requirements.txt
 
+
 script:
 - if [ "$TYPE" = "docker" ]; then docker build -t $TAG_SHORT .; docker images -a; fi;
 - if [ "$TYPE" = "build" ]; then python -m compileall ./musicbot; fi;
